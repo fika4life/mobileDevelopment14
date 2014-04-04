@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+   
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="apple-touch-icon" href="/apple-touch-icon-precomposed.png" />
+        <link rel="apple-touch-startup-image" href="/apple-touch-icon-precomposed.png" />
+
+
+        <link rel="stylesheet" href="css/normalize.css"> 
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqeKiBx-SRpbdDXuGIBIhkEVLePNy3AcU&sensor=false">
+        </script>
+        <script type="text/javascript">
+
+            var kth = new google.maps.LatLng(59.347475, 18.073548);
+            var steph = new google.maps.LatLng(59.343405,18.054755);
+            var fiona = new google.maps.LatLng(59.340919, 18.058860);
+            var dan = new google.maps.LatLng(59.334539, 18.062639);
+            
+            function initialize() {
+             var mapOptions = {
+               center: kth,
+                zoom: 14,
+                    panControl: false,
+                    zoomControl: false,
+                    streetViewControl: false,
+                    overviewMapControl: false,
+                    mapTypeControl: true,
+                    mapTypeControl: true,
+                mapTypeId: google.maps.MapTypeId.SATELLITE
+             };
+            var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+            map.setTilt(45);
+
+
+
+
+
+
+            var stephMarker = new google.maps.Marker({
+                position: steph,
+                draggable:false,
+                animation: google.maps.Animation.DROP,
+                map: map,
+                title:"Stockholms Stadsbibliotek - Bästa stället att utforska nya världar"
+            });
+            var fionaMarker = new google.maps.Marker({
+                position: fiona,
+                draggable:false,
+                animation: google.maps.Animation.DROP,
+                map: map,
+                title:"Espresso Sosta Bar- Stockholm's best Italian espresso experience!"
+            });
+
+
+            var danMarker = new google.maps.Marker({
+                position: dan,
+                draggable:false,
+                animation: google.maps.Animation.DROP,
+                map: map,
+                title:"Filmstaden Sergel - Northern Europe's busiest cinema complex"
+            });
+
+            //Set users location as center of map if geolocation available
+            if (navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(function(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                var geolocpoint = new google.maps.LatLng(latitude, longitude);
+                map.setCenter(geolocpoint);
+                });
+            }
+                
+            
+
+
+            // Construct your control for zoomIn
+            var controlDiv = document.createElement('div');
+            controlDiv.style.padding='5px';
+            // Set CSS for the control border
+            var zoomIn = document.createElement('div');
+            zoomIn.style.backgroundColor='white';
+            zoomIn.style.borderStyle='solid';
+            zoomIn.style.borderWidth = '2px';
+            zoomIn.style.cursor = 'pointer';
+            zoomIn.style.textAlign = 'center';
+            zoomIn.title = 'Zoom in';
+            controlDiv.appendChild(zoomIn);
+            // Set CSS for the control interior.
+            var zoomInText = document.createElement('div');
+            zoomInText.style.fontFamily = 'Arial,sans-serif';
+            zoomInText.style.fontSize = '12px';
+            zoomInText.style.paddingLeft = '4px';
+            zoomInText.style.paddingRight = '4px';
+            zoomInText.innerHTML = '<strong>+</strong>';
+            zoomIn.appendChild(zoomInText);
+            //Positioning the controls
+            controlDiv.index =1;
+
+            // Construct your control for zoomOut
+            var controlDiv2 = document.createElement('div');
+            controlDiv2.style.padding='5px';
+            // Set CSS for the control border
+            var zoomOut = document.createElement('div');
+            zoomOut.style.backgroundColor='white';
+            zoomOut.style.borderStyle='solid';
+            zoomOut.style.borderWidth = '2px';
+            zoomOut.style.cursor = 'pointer';
+            zoomOut.style.textAlign = 'center';
+            zoomOut.title = 'Zoom out';
+            controlDiv2.appendChild(zoomOut);
+            // Set CSS for the control interior.
+            var zoomOutText = document.createElement('div');
+            zoomOutText.style.fontFamily = 'Arial,sans-serif';
+            zoomOutText.style.fontSize = '12px';
+            zoomOutText.style.paddingLeft = '6px';
+            zoomOutText.style.paddingRight = '6px';
+            zoomOutText.innerHTML = '<strong>-</strong>';
+            zoomOut.appendChild(zoomOutText);
+
+
+            // Construct your control for panUp
+            var controlDiv3 = document.createElement('div');
+            controlDiv3.style.padding='5px';
+            // Set CSS for the control border
+            var panUp = document.createElement('div');
+            panUp.style.backgroundColor='white';
+            panUp.style.borderStyle='solid';
+            panUp.style.borderWidth = '2px';
+            panUp.style.cursor = 'pointer';
+            panUp.style.textAlign = 'center';
+            panUp.title = 'Pan Up';
+            controlDiv3.appendChild(panUp);
+            // Set CSS for the control interior.
+            var panUpText = document.createElement('div');
+            panUpText.style.fontFamily = 'Arial,sans-serif';
+            panUpText.style.fontSize = '12px';
+            panUpText.style.paddingLeft = '4px';
+            panUpText.style.paddingRight = '4px';
+            panUpText.innerHTML = '<strong>Up</strong>';
+            panUp.appendChild(panUpText);
+
+
+            // Construct your control for panLeft
+            var controlDiv4 = document.createElement('div');
+            controlDiv4.style.padding='5px';
+            // Set CSS for the control border
+            var panLeft = document.createElement('div');
+            panLeft.style.backgroundColor='white';
+            panLeft.style.borderStyle='solid';
+            panLeft.style.borderWidth = '2px';
+            panLeft.style.cursor = 'pointer';
+            panLeft.style.textAlign = 'center';
+            panLeft.title = 'Pan Left';
+            controlDiv4.appendChild(panLeft);
+            // Set CSS for the control interior.
+            var panLeftText = document.createElement('div');
+            panLeftText.style.fontFamily = 'Arial,sans-serif';
+            panLeftText.style.fontSize = '12px';
+            panLeftText.style.paddingLeft = '6px';
+            panLeftText.style.paddingRight = '6px';
+            panLeftText.innerHTML = '<strong>Left</strong>';
+            panLeft.appendChild(panLeftText);
+
+            // Construct your control for panRight
+            var controlDiv5 = document.createElement('div');
+            controlDiv5.style.padding='5px';
+            // Set CSS for the control border
+            var panRight = document.createElement('div');
+            panRight.style.backgroundColor='white';
+            panRight.style.borderStyle='solid';
+            panRight.style.borderWidth = '2px';
+            panRight.style.cursor = 'pointer';
+            panRight.style.textAlign = 'center';
+            panRight.title = 'Pan Right';
+            controlDiv5.appendChild(panRight);
+            // Set CSS for the control interior.
+            var panRightText = document.createElement('div');
+            panRightText.style.fontFamily = 'Arial,sans-serif';
+            panRightText.style.fontSize = '12px';
+            panRightText.style.paddingLeft = '4px';
+            panRightText.style.paddingRight = '4px';
+            panRightText.innerHTML = '<strong>Right</strong>';
+            panRight.appendChild(panRightText);
+           
+
+            // Construct your control for panDown
+            var controlDiv6 = document.createElement('div');
+            controlDiv6.style.padding='5px';
+            // Set CSS for the control border
+            var panDown = document.createElement('div');
+            panDown.style.backgroundColor='white';
+            panDown.style.borderStyle='solid';
+            panDown.style.borderWidth = '2px';
+            panDown.style.cursor = 'pointer';
+            panDown.style.textAlign = 'center';
+            panDown.title = 'Pan Down';
+            controlDiv6.appendChild(panDown);
+            // Set CSS for the control interior.
+            var panDownText = document.createElement('div');
+            panDownText.style.fontFamily = 'Arial,sans-serif';
+            panDownText.style.fontSize = '12px';
+            panDownText.style.paddingLeft = '6px';
+            panDownText.style.paddingRight = '6px';
+            panDownText.innerHTML = '<strong>Down</strong>';
+            panDown.appendChild(panDownText);
+            //Positioning the controls
+            controlDiv.index =1;
+            controlDiv2.index =1;
+            controlDiv3.index =1;
+            controlDiv4.index =1;
+            controlDiv5.index =1;
+            controlDiv6.index =1;
+
+
+
+            // Add the control to the map at a designated control position
+            // by pushing it on the position's array. This code will
+            // implicitly add the control to the DOM, through the Map
+            // object. You should not attach the control manually.
+            map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
+            map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv2);
+            map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv3);
+            map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv5);
+            map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv4);
+            map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv6);
+            
+
+
+            
+
+            google.maps.event.addDomListener(zoomIn, 'click',function(){
+                map.setZoom(map.getZoom()+1);
+            });
+
+            google.maps.event.addDomListener(zoomOut, 'click',function(){
+                map.setZoom(map.getZoom()-1);       
+            });     
+        
+            google.maps.event.addDomListener(panUp, 'click',function(){
+                map.panBy(0,-10);       
+            });  
+
+            google.maps.event.addDomListener(panDown, 'click',function(){
+                map.panBy(0,10);       
+            }); 
+            google.maps.event.addDomListener(panRight, 'click',function(){
+                map.panBy(10,0);       
+            });
+
+            google.maps.event.addDomListener(panLeft, 'click',function(){
+                map.panBy(-10,0);       
+            });  
+
+
+            var stephsFav = document.getElementById("stephsFav");
+            stephsFav.addEventListener("click", stephClicked,false);
+
+            var dansFav = document.getElementById("dansFav");
+            dansFav.addEventListener("click", danClicked,false);
+
+            var fionasFav = document.getElementById("fionasFav");
+            fionasFav.addEventListener("click", setCenter,false);
+
+
+
+            function stephClicked(){
+                map.setZoom(16);
+                map.setCenter(steph);
+            }
+
+            function danClicked(){
+                map.setZoom(16);
+                map.setCenter(dan);
+            }
+
+            function fionaClicked(){
+                map.setZoom(16);
+                map.setCenter(fiona);
+            }
+
+
+
+
+            } //ends initialize function
+
+
+            
+
+            google.maps.event.addDomListener(window, 'load', initialize);
+
+
+
+
+
+
+
+
+         </script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <div id="map-canvas"></div>
+        <div id='button-area'>
+            <input type='button' id='stephsFav' value="Steph's Fav" >
+            <input type='button' id='dansFav' value="Dan's Fav">
+            <input type='button' id='fionasFav' value="Fiona's Fav">
+        </div>
+    
+
+
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script>window.jQuery || document.write('<script src="http://code.jquery.com/jquery-latest.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+
+
+
+
+      
+    </body>
+</html>
