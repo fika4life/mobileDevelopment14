@@ -23,6 +23,8 @@
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqeKiBx-SRpbdDXuGIBIhkEVLePNy3AcU&sensor=false">
         </script>
         <script type="text/javascript">
+            
+            var cityCenter= new google.maps.LatLng(59.3341925,18.070282);
 
             var kth = new google.maps.LatLng(59.347475, 18.073548);
             var steph = new google.maps.LatLng(59.343405,18.054755);
@@ -31,7 +33,7 @@
             
             function initialize() {
              var mapOptions = {
-               center: kth,
+               center: cityCenter,
                 zoom: 14,
                     panControl: false,
                     zoomControl: false,
@@ -81,6 +83,7 @@
                 var longitude = position.coords.longitude;
                 var geolocpoint = new google.maps.LatLng(latitude, longitude);
                 map.setCenter(geolocpoint);
+                map.setZoom(16);
                 });
             }
                 
