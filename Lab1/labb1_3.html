@@ -1,19 +1,65 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html manifest="cache.appcache">
     <head>
         <meta charset="utf-8">
    
         <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-        <meta name="apple-mobile-web-app-capable" content="yes">
 
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+      
+
+        <!--controls the viewport -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1" />
+
+
+        <!--Hides the urlbar-->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="HandheldFriendly" content="true" />
+		<meta name="format-detection" content="telephone=no" />
+
+        <!--Splash screen-->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+         <meta name="mobile-web-app-capable" content="yes">
         <link rel="apple-touch-icon" href="/apple-touch-icon-precomposed.png" />
         <link rel="apple-touch-startup-image" href="/apple-touch-icon-precomposed.png" />
+
+        <!-- iPhone -->
+			<link href="apple-touch-startup-image-320x460.png" media="(device-width: 320px) and (device-height: 480px)
+			        and (-webkit-device-pixel-ratio: 1)"
+			      rel="apple-touch-startup-image">
+			<!-- iPhone (Retina) -->
+			<link href="apple-touch-startup-image-640x920.png"
+			      media="(device-width: 320px) and (device-height: 480px)
+			         and (-webkit-device-pixel-ratio: 2)"
+			      rel="apple-touch-startup-image">
+			<!-- iPhone 5 -->
+			<link href="apple-touch-startup-image-640x1096.png"
+			      media="(device-width: 320px) and (device-height: 568px)
+			         and (-webkit-device-pixel-ratio: 2)"
+			      rel="apple-touch-startup-image">
+			<!-- iPad (portrait) -->
+			<link href="apple-touch-startup-image-768x1004.png"
+			      media="(device-width: 768px) and (device-height: 1024px)
+			         and (orientation: portrait)
+			         and (-webkit-device-pixel-ratio: 1)"
+			      rel="apple-touch-startup-image">
+			<!-- iPad (landscape) -->
+			<link href="apple-touch-startup-image-748x1024.png"
+			      media="(device-width: 768px) and (device-height: 1024px)
+			         and (orientation: landscape)
+			         and (-webkit-device-pixel-ratio: 1)"
+			      rel="apple-touch-startup-image">
+			<!-- iPad (Retina, portrait) -->
+			<link href="apple-touch-startup-image-1536x2008.png"
+			      media="(device-width: 768px) and (device-height: 1024px)
+			         and (orientation: portrait)
+			         and (-webkit-device-pixel-ratio: 2)"
+			      rel="apple-touch-startup-image">
+			<!-- iPad (Retina, landscape) -->
+			<link href="apple-touch-startup-image-1496x2048.png"
+			      media="(device-width: 768px) and (device-height: 1024px)
+			         and (orientation: landscape)
+			         and (-webkit-device-pixel-ratio: 2)"
+			      rel="apple-touch-startup-image">
 
 
         <link rel="stylesheet" href="css/normalize.css"> 
@@ -22,7 +68,14 @@
         <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqeKiBx-SRpbdDXuGIBIhkEVLePNy3AcU&sensor=false">
         </script>
+
+
+
         <script type="text/javascript">
+            
+            var cityCenter= new google.maps.LatLng(59.3341925,18.070282);
+
+        	var cityCenter= new google.maps.LatLng(59.3341925,18.070282);
 
             var kth = new google.maps.LatLng(59.347475, 18.073548);
             var steph = new google.maps.LatLng(59.343405,18.054755);
@@ -31,7 +84,7 @@
             
             function initialize() {
              var mapOptions = {
-               center: kth,
+               center: cityCenter,
                 zoom: 14,
                     panControl: false,
                     zoomControl: false,
@@ -81,6 +134,7 @@
                 var longitude = position.coords.longitude;
                 var geolocpoint = new google.maps.LatLng(latitude, longitude);
                 map.setCenter(geolocpoint);
+                map.setZoom(16);
                 });
             }
                 
@@ -237,6 +291,9 @@
             map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv5);
             map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv4);
             map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv6);
+
+
+
             
 
 
@@ -273,7 +330,7 @@
             dansFav.addEventListener("click", danClicked,false);
 
             var fionasFav = document.getElementById("fionasFav");
-            fionasFav.addEventListener("click", setCenter,false);
+            fionasFav.addEventListener("click", fionaClicked,false);
 
 
 
@@ -318,12 +375,18 @@
 
         <!-- Add your site or application content here -->
         <div id="map-canvas"></div>
+        <div id='not-map'>
+
         <div id='button-area'>
             <input type='button' id='stephsFav' value="Steph's Fav" >
             <input type='button' id='dansFav' value="Dan's Fav">
             <input type='button' id='fionasFav' value="Fiona's Fav">
         </div>
-    
+
+        </div>
+
+
+
 
 
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
