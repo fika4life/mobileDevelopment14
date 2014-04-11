@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>My Image Gallery</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css">
+
+
+
+   		<style>
+   		img{
+   			display: block;
+   			margin:auto;
+
+   			}
+
+   		#dialogPage{
+   			width: 200px;
+			  max-width: 500px;
+			  margin: 20% auto 15px auto;
+			  padding: 0;
+			  position: relative;
+			  top: -15px;
+   		}
+   		#dialogPage ul{
+   			display: block;
+   			padding-left: 0;
+   			
+   		}
+
+   		#dialogPage ul li{
+   			list-style: none;
+   		}
+
+
+
+   		</style>
+
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+   		<script type="text/javascript" src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>		
+
+   		<script>
+
+
+
+
+
+
+	$(document).on("pageinit", "#page-1", function(){
+		$('img').on('dragstart', function(event) {
+   		 event.preventDefault();
+		});
+
+
+		    // Set default transitions.
+
+
+
+
+		//Lets user change theme colors
+		$.mobile.changeGlobalTheme = function(theme)
+			{
+			// These themes will be cleared, add more
+			// swatch letters as needed.
+			var themes = " a b c d e";
+
+			// Updates the theme for all elements that match the
+			// CSS selector with the specified theme class.
+			function setTheme(cssSelector, themeClass, theme)
+			{
+			$(cssSelector)
+			    .removeClass(themes.split(" ").join(" " + themeClass + "-"))
+			    .addClass(themeClass + "-" + theme)
+			    .attr("data-theme", theme);
+			}
+
+			// Add more selectors/theme classes as needed.
+			setTheme(".ui-mobile-viewport", "ui-overlay", theme);
+			setTheme("[data-role='page']", "ui-body", theme);
+			setTheme("[data-role='header']", "ui-bar", theme);
+			setTheme("[data-role='listview'] > li", "ui-bar", theme);
+			setTheme(".ui-btn", "ui-btn-up", theme);
+			setTheme(".ui-btn", "ui-btn-hover", theme);
+
+		};
+
+		$("#page-1 ul").on("click", "li", function(){
+			$.mobile.changePage("#page-2", {transition: "slide", changeHash:false});
+			var $clickedTitle = $(this).text();
+				//saves name of image for use of appending to page 2. Note: ids should match name of images.
+				var $clickedImg = $(this).attr("id");
+				
+
+			//Attaches name of picture to page two header	
+			$("#page-2 h1").text($clickedTitle);
+
+			//saves clicked img src to variable
+			var $img = "<div id='"+$clickedImg+"-div'><img id='galleryImg' draggable='false' src='images/" + $clickedImg + ".jpeg'</img> </div>";
+			//Adds clicked image to page 2 content
+			$("#page-2 #img-holder").html($img);
+
+		});
+		//adds slide effect on back and home buttons
+		$('#back-btn, #home-btn').on("click", function(){
+			$.mobile.changePage("#page-1", {transition: "slide", reverse:true, changeHash:false});
+		});
+	 
+	});
+
+	var pictureOrder = ["images/baby-1.jpeg", "images/baby-2.jpeg", "images/baby-3.jpeg", "images/baby-4.jpeg", "images/baby-5.jpeg", "images/baby-6.jpeg"];
+
+	$(document).on("pagecreate","#page-2",function(){
+			$("#page-2").bind("swipeleft", function (e) {
+
+
+				var $curSrcL = $("div > img").attr("src");
+				var $posL = pictureOrder.indexOf($curSrcL);
+				var $newSrcL = pictureOrder[$posL+1];
+				var $newH1L = "Baby Pic";
+
+				$("#page-2 h1").text($newH1L);
+				$("img#galleryImg").attr("src",$newSrcL);
+
+			});
+
+			$("#page-2").bind("swiperight", function (e) {
+				var $curSrcR = $("div > img").attr("src");
+				var $posR = pictureOrder.indexOf($curSrcR);
+				var $newSrcR = pictureOrder[$posR-1];
+				var $newH1R = $newSrcR.replace('images/','').replace('.jpeg','');
+
+				//$("#page-2 h1").text($newH1R);
+				$("img#galleryImg").attr("src",$newSrcR);
+
+			});
+		});
+
+
+		</script> 
+	</head>
+
+	<body>
+		
+		<div data-role="page" id="page-1">
+
+			<div data-role="header" data-theme="b">
+				<h1>My Image Gallery</h1>
+
+				<a href="#dialogPage" data-role="button" data-icon="gear" class="ui-btn-right" data-rel="dialog" data-theme="b">Settings</a>
+
+			</div>
+
+
+			<div data-role="content">
+
+				<ul data-role="listview" data-inset="true" data-filter="false" data-theme="c">
+					<li id="baby-1"><a href="#page-2"><img src="images/baby-1.jpeg"><h4>Dom eating</h4></a></li>
+					<li id="baby-2"><a href="#page-2"><img src="images/baby-2.jpeg"><h4>Daniel before surgery</h4></a></li>
+				<li id="baby-3"><a href="#page-2"><img src="images/baby-3.jpeg"><h4>Dom smiling</h4></a></li>
+					<li id="baby-4"><a href="#page-2"><img src="images/baby-4.jpeg"><h4>Dan and Cosmos</h4></a></li>
+					<li id="baby-5"><a href="#page-2"><img src="images/baby-5.jpeg"><h4>Brothers</h4></a></li>
+					<li id="baby-6"><a href="#page-2"><img src="images/baby-6.jpeg"><h4>Brothers 2</h4></a></li>
+				</ul>
+
+
+				<a href="#about" data-role="button">About</a>
+			</div> <!--ends content-->
+		</div> <!--ends page-1-->
+
+		<div data-role="page" id="dialogPage">
+			<div data-role="header" data-theme="b">
+				<h2>Settings</h2>
+			</div>
+
+			<div data-role="content">
+			<ul>
+				<p>Change Theme</p>
+				<li id='a'><button data-theme="a">Theme A</button></li>
+				<li id='b'><button data-theme="b">Theme B</button></li>
+				<li id='c'><button data-theme="c">Theme C</button></li>
+				<li id='d'><button data-theme="d">Theme D</button></li>
+				<li id='e'><button data-theme="e">Theme E</button></li>
+				
+			</ul>
+			</div>
+
+			<script>	
+
+			$('#dialogPage ul').on("click", "li", function(){
+				var $clickedTheme= $(this).attr("id");
+				//alert ($clickedTheme);
+				$.mobile.changeGlobalTheme($clickedTheme);
+			});
+
+			</script>
+		</div><!--ends dialog-->
+
+
+		<div data-role="page" id="page-2">
+			<div data-role="header" data-theme="b">
+				<a href="#page-1" id='back-btn' data-role="button" data-icon="arrow-l" class="ui-btn-left" >Back</a>
+				<h1></h1>
+				<a href="#page-1" id="home-btn" data-role="button" data-icon="home" class="ui-btn-right">Home</a>
+
+			</div>
+
+			<div data-role="content">
+				<div id="img-holder"></div>
+				
+
+			</div>
+		</div><!--ends page-2-->
+
+
+		<div data-role="page" id="about">
+			<div data-role="header" data-theme="b">
+				<a href="#page-1" data-role="button" data-icon="arrow-l" class="ui-btn-left">Back</a>
+				<h1>About</h1>
+				
+
+			</div>
+
+			<div data-role="content">
+				<ul data-role="listview" data-inset="true" data-filter="false">
+					<li data-role="list-divider">The Undevelopers</li>
+					<li>Dan Carino</li>
+					<li>Stephanie Flodman</li>
+					<li>Fiona Karlsson</li>
+
+
+			</div>
+		</div><!--ends about-->
+
+
+
+
+
+
+
+
+
+
+	</body>
+</html>
