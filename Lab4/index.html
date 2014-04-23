@@ -12,74 +12,104 @@
    	<script type="text/javascript" src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>	
 	
 
-		<script type="text/javascript" charset="utf-8" src="js/wormhole.js"></script>
+		<!--script type="text/javascript" charset="utf-8" src="js/wormhole.js"></script-->
 		<!--  include all the required CBHelper libraries: XMLHttpRequest, md5, json and the MoSync specific helper -->
 		<script type="text/javascript" charset="utf-8" src="js/CBHelper/md5.js"></script>
 		<script type="text/javascript" charset="utf-8" src="js/CBHelper/json.js"></script>
 		<script type="text/javascript" charset="utf-8" src="js/CBHelper/CBXMLHttpRequest.js"></script>
 		<script type="text/javascript" charset="utf-8" src="js/CBHelper/CBHelper.js"></script>
-		<script type="text/javascript" charset="utf-8" src="js/CBHelper/platforms/MoSyncHelper.js"></script>
+		<!--script type="text/javascript" charset="utf-8" src="js/CBHelper/platforms/MoSyncHelper.js"></script-->
 		<script type="text/javascript" charset="utf-8" src="js/CBHelper/platforms/GenericHelper.js"></script>
 		<script type="text/javascript">
 
 
-// 		// First initialise the helper object with the code, secret code 
-// 		// and the generic helper
-// 		var helper = new CBHelper("mopub14_labb5", "ed86229afa03c22b4fd0139c60d0bb5e", new GenericHelper());
-// 		// use the md5 library provided to set the password
-// 		helper.setPassword(hex_md5("mopub14_labb5"));
+		// First initialise the helper object with the code, secret code 
+		// and the generic helper
+		var helper = new CBHelper("mopub14_labb5", "ed86229afa03c22b4fd0139c60d0bb5e", new GenericHelper());
+		// use the md5 library provided to set the password
+		helper.setPassword(hex_md5("mopub14_labb5"));
 
-// 		// create an object to be inserted in our CloudBase instance,
-// 		// e.g a firstName, lastName and title into a collection called ‘users’
-// 		var dataObject = {
-// 		    "Name" : "Sosta Bar",
-// 		    "Description" : "Cozy Espresso bar",
-// 		    "Address" : "Sveavägen 84, Stockholm",
-// 		    "Category" : "Fika",
-// 		    "Price Range" : "$",
-// 		    "Rating" : "5"
-// 		};
-// 		 // use the insertDocument method to send the call and insert the data
-// 		// in the users collection then print out the response using the
-// 		// outputString property of the CBHelperResponseInfo object
-
-// 		helper.insertDocument("restaurants", dataObject, null, function(resp) {
-// 		    console.log(resp.outputString);
-// 		});
-
-// 		// create an object to be inserted in our CloudBase instance,
-// 		// e.g a firstName, lastName and title into a collection called ‘users’
-// 		var dataObject1 = {
-// 		    "Name" : "Vapiano",
-// 		    "Description" : "Italian pasta and pizza",
-// 		    "Address" : "Munkbrogatan 8, Stockholm",
-// 		    "Category" : "Fika",
-// 		    "Price Range" : "$",
-// 		    "Rating" : "5"
-// 		};
-// 		 // use the insertDocument method to send the call and insert the data
-// 		// in the users collection then print out the response using the
-// 		// outputString property of the CBHelperResponseInfo object
-
-// 		helper.insertDocument("restaurants", dataObject, null, function(resp) {
-// 		    console.log(resp.outputString);
-// 		});
+		// create an object to be inserted in our CloudBase instance,
+		// e.g a firstName, lastName and title into a collection called ‘users’
+		var dataObject = {
+		    "Name" : "Sosta Bar",
+		    "Description" : "Cozy Espresso bar",
+		    "Address" : "Sveavägen 84, Stockholm",
+		    "Category" : "Fika",
+		    "Price Range" : "1",
+		    "Rating" : "5"
+		};
 
 
-// 		var searchCondition = { "Name" : "Sosta Bar" };
-// 		// call the searchDocuments function
-// 		helper.searchDocuments(searchCondition,"restaurants", function(resp) {
-//         // uncomment next row to get entire string
-//        	// alert(resp.outputString);   
-       
-// 	        if (resp.callStatus){       // if successful
-// 	        	for (index in resp.outputData){
-// 	        		var user = resp.outputData[index];
-// 	        		alert (user.firstName + ' ' + user.lastName + ', ' + user.title);
-// 	        	}
-//         }
-//     }
-// );
+		// create an object to be inserted in our CloudBase instance,
+		// e.g a firstName, lastName and title into a collection called ‘users’
+		var dataObject1 = {
+		    "Name" : "Vapiano",
+		    "Description" : "Italian pasta and pizza",
+		    "Address" : "Munkbrogatan 8, Stockholm",
+		    "Category" : "Fika",
+		    "Price Range" : "$$",
+		    "Rating" : "4"
+		};
+
+		var dataObject2 = {
+		    "Name" : "TGI Friday's",
+		    "Description" : "American Bar and Grill",
+		    "Address" : "Hamngatan 19, Stockholm",
+		    "Category" : "American",
+		    "Price Range" : "$$$",
+		    "Rating" : "3"
+		};
+		 // use the insertDocument method to send the call and insert the data
+		// in the users collection then print out the response using the
+		// outputString property of the CBHelperResponseInfo object
+
+		// helper.insertDocument("restaurants", dataObject, null, function(resp) {
+		//     console.log(resp.outputString);
+		// });
+
+		// helper.insertDocument("restaurants", dataObject1, null, function(resp) {
+		//     console.log(resp.outputString);
+		// });	
+
+		// helper.insertDocument("restaurants", dataObject2, null, function(resp) {
+		//     console.log(resp.outputString);
+		// });	
+
+		// call the searchDocuments function
+	
+		helper.searchDocuments({ "Name" : "Sosta Bar" }, "restaurants", function(resp) {
+			if ( resp.callStatus && resp.outputData.length == 0 ) {
+				// no users with this name found - insert new user and login
+						helper.insertDocument("restaurants", dataObject, null, function(resp) {
+							console.log(resp.outputString);
+						});
+				
+				}
+		});
+
+		helper.searchDocuments({ "Name" : "Vapiano" }, "restaurants", function(resp) {
+			if ( resp.callStatus && resp.outputData.length == 0 ) {
+				// no users with this name found - insert new user and login
+						helper.insertDocument("restaurants", dataObject1, null, function(resp) {
+							console.log(resp.outputString);
+						});
+				
+				}
+		});	
+		
+		helper.searchDocuments({ "Name" : "TGI Friday's" }, "restaurants", function(resp) {
+			if ( resp.callStatus && resp.outputData.length == 0 ) {
+				// no users with this name found - insert new user and login
+						helper.insertDocument("restaurants", dataObject2, null, function(resp) {
+							console.log(resp.outputString);
+						});
+				
+				}
+		});	
+
+	
+
 
 		</script>
 	</head>
