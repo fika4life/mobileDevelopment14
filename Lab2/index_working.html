@@ -32,7 +32,9 @@
    		#dialogPage ul li{
    			list-style: none;
    		}
-   		
+
+
+
    		</style>
 
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
@@ -94,7 +96,7 @@
 			$("#page-2 h1").text($clickedTitle);
 
 			//saves clicked img src to variable
-			var $img = "<div id='"+$clickedImg+"-div'><img id='galleryImg' draggable='false' src='images/" + $clickedImg + ".jpeg'</img> </div>";
+			var $img = "<div id='"+$clickedImg+"-div'><img draggable='false' src='images/" + $clickedImg + ".jpeg'</img> </div>";
 			//Adds clicked image to page 2 content
 			$("#page-2 #img-holder").html($img);
 
@@ -103,36 +105,42 @@
 		$('#back-btn, #home-btn').on("click", function(){
 			$.mobile.changePage("#page-1", {transition: "slide", reverse:true, changeHash:false});
 		});
-	 
-	});
-
-	var pictureOrder = ["images/baby-1.jpeg", "images/baby-2.jpeg", "images/baby-3.jpeg", "images/baby-4.jpeg", "images/baby-5.jpeg", "images/baby-6.jpeg", "images/baby-7.jpeg"];
-
-	$(document).on("pagecreate","#page-2",function(){
-			$("#page-2").bind("swipeleft", function (e) {
 
 
-				var $curSrcL = $("div > img").attr("src");
-				var $posL = pictureOrder.indexOf($curSrcL);
-				var $newSrcL = pictureOrder[$posL+1];
-				var $newH1L = "Baby Pic";
 
-				$("#page-2 h1").text($newH1L);
-				$("img#galleryImg").attr("src",$newSrcL);
+    	// $.mobile.defaultPageTransition = "none";
+    	// $.mobile.defaultDialogTransition = "none";
 
-			});
+	    // // Function to make it easier to define swipe events.
+	    // function swipeBetween(left, right)
+	    // {
+	    //     $(document).on("swipeleft", left, function() {
+	    //         $.mobile.changePage(
+	    //             right,
+	    //             { transition: "none" });
+	    //     });
+	    //     $(document).on("swiperight", right, function() {
+	    //         $.mobile.changePage(
+	    //             left,
+	    //             { transition: "none", reverse: true });
+	    //     });
+	    // }
 
-			$("#page-2").bind("swiperight", function (e) {
-				var $curSrcR = $("div > img").attr("src");
-				var $posR = pictureOrder.indexOf($curSrcR);
-				var $newSrcR = pictureOrder[$posR-1];
-				var $newH1R = $newSrcR.replace('images/','').replace('.jpeg','');
+	    // // Set up swipe between pages.
 
-				//$("#page-2 h1").text($newH1R);
-				$("img#galleryImg").attr("src",$newSrcR);
+	    // swipeBetween("#page-1", "#page-2");
+	    // swipeBetween("#page-2", "#page-3");
+	    // swipeBetween("#page-3", "#page-4");
+	    // swipeBetween("#page-4", "#page-5");
+	    // swipeBetween("#page-5", "#page-1");
 
-			});
+
+		$("#baby-1").on("swipeleft", function(){
+			$.mobile.changePage("#page-2", {transition: "slide", changeHash:true});
+			//alert('hej');
+			$(this).empty().append("<img src='images/baby-2.jpeg'</img>");
 		});
+	});
 
 
 		</script> 
@@ -145,7 +153,7 @@
 			<div data-role="header" data-theme="b">
 				<h1>My Image Gallery</h1>
 
-				<a href="#dialogPage" data-role="button" data-icon="gear" class="ui-btn-right" data-rel="dialog" data-theme="b">Settings</a>
+				<a href="#dialogPage" data-role="button" data-icon="gear" class="ui-btn-right" data-rel="dialog" data-theme="c">Settings</a>
 
 			</div>
 
@@ -155,11 +163,9 @@
 				<ul data-role="listview" data-inset="true" data-filter="false" data-theme="c">
 					<li id="baby-1"><a href="#page-2"><img src="images/baby-1.jpeg"><h4>Dom eating</h4></a></li>
 					<li id="baby-2"><a href="#page-2"><img src="images/baby-2.jpeg"><h4>Daniel before surgery</h4></a></li>
-				<li id="baby-3"><a href="#page-2"><img src="images/baby-3.jpeg"><h4>Dom smiling</h4></a></li>
+					<li id="baby-3"><a href="#page-2"><img src="images/baby-3.jpeg"><h4>Dom smiling</h4></a></li>
 					<li id="baby-4"><a href="#page-2"><img src="images/baby-4.jpeg"><h4>Dan and Cosmos</h4></a></li>
 					<li id="baby-5"><a href="#page-2"><img src="images/baby-5.jpeg"><h4>Brothers</h4></a></li>
-					<li id="baby-6"><a href="#page-2"><img src="images/baby-6.jpeg"><h4>Brothers 2</h4></a></li>
-					<li id="baby-7"><a href="#page-2"><img src="images/baby-7.jpeg"><h4>Chubby Dom</h4></a></li>
 				</ul>
 
 
@@ -180,7 +186,7 @@
 				<li id='c'><button data-theme="c">Theme C</button></li>
 				<li id='d'><button data-theme="d">Theme D</button></li>
 				<li id='e'><button data-theme="e">Theme E</button></li>
-				
+				<li><button>Close</button></li>
 			</ul>
 			</div>
 

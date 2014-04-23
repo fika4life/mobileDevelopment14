@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>My Image Gallery</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css">
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+   		<script type="text/javascript" src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>		
+
+   		<script>
+
+
+
+		// $(document).on("pageinit", "#page-1", function(){
+
+		// 	$("ul").on("click", "li", function(){
+		// 		//saves name of image for use in page two header
+		// 		var $clickedTitle = $(this).text();
+		// 		//saves name of image for use of appending to page 2. Note: ids should match name of images.
+		// 		var $clickedImg = $(this).attr("id");
+				
+
+		// 	//Attaches name of picture to page two header	
+		// 	$("#page-2 h1").text($clickedTitle);
+
+		// 	//saves clicked img src to variable
+		// 	$img = "<img src='images/" + $clickedImg + ".jpeg'</img>";
+		// 	//Adds clicked image to page 2 content
+		// 	$("#page-2 #img-holder").html($img);
+
+		// 	});
+
+		// });
+
+
+
+
+	$(document).on("pageinit", "#page-1", function(){
+		$('img').on('dragstart', function(event) {
+   		 event.preventDefault();
+		});
+
+		$("ul").on("click", "li", function(){
+			$.mobile.changePage("#page-2", {transition: "slide", changeHash:false});
+			var $clickedTitle = $(this).text();
+				//saves name of image for use of appending to page 2. Note: ids should match name of images.
+				var $clickedImg = $(this).attr("id");
+				
+
+			//Attaches name of picture to page two header	
+			$("#page-2 h1").text($clickedTitle);
+
+			//saves clicked img src to variable
+			var $img = "<div id='"+$clickedImg+"-div'><img draggable='false' src='images/" + $clickedImg + ".jpeg'</img> </div>";
+			//Adds clicked image to page 2 content
+			$("#page-2 #img-holder").html($img);
+
+		});
+		//adds slide effect on back and home buttons
+		$('#back-btn, #home-btn').on("click", function(){
+			$.mobile.changePage("#page-1", {transition: "slide", reverse:true, changeHash:false});
+		});
+
+
+
+		$("#baby-1-div").on("swipeleft", function(){
+			//$.mobile.changePage("#page-2", {transition: "slide", changeHash:true});
+			alert('hej');
+			//$(this).empty().append("<img src='images/baby-2.jpeg'</img>");
+		});
+	});
+
+
+
+		</script> 
+	</head>
+
+	<body>
+		
+		<div data-role="page" id="page-1">
+
+			<div data-role="header">
+				<h1>My Image Gallery</h1>
+
+				<a href="#" data-role="button" data-icon="gear" class="ui-btn-right">Settings</a>
+
+
+
+
+			</div>
+
+			<div data-role="content">
+
+				<ul data-role="listview" data-inset="true" data-filter="false">
+					<li id="baby-1"><a href="#page-2"><p>Dom eating</p></a></li>
+					<li id="baby-2"><a href="#page-2"><p>Daniel before surgery</p></a></li>
+					<li id="baby-3"><a href="#page-2"><p>Dom smiling</p></a></li>
+					<li id="baby-4"><a href="#page-2"><p>Dan and Cosmos</p></a></li>
+					<li id="baby-5"><a href="#page-2"><p>Brothers</p></a></li>
+				</ul>
+
+
+				<a href="#about" data-role="button">About</a>
+			</div> <!--ends content-->
+		</div> <!--ends page-1-->
+
+
+		<div data-role="page" id="page-2">
+			<div data-role="header">
+				<a href="#page-1" id='back-btn' data-role="button" data-icon="arrow-l" class="ui-btn-left">Back</a>
+				<h1></h1>
+				<a href="#page-1" id="home-btn" data-role="button" data-icon="home" class="ui-btn-right">Home</a>
+
+			</div>
+
+			<div data-role="content">
+				<div id="img-holder"></div>
+				
+
+			</div>
+		</div><!--ends page-2-->
+
+
+		<div data-role="page" id="about">
+			<div data-role="header">
+				<a href="#page-1" data-role="button" data-icon="arrow-l" class="ui-btn-left">Back</a>
+				<h1>About</h1>
+				
+
+			</div>
+
+			<div data-role="content">
+				<ul data-role="listview" data-inset="true" data-filter="false">
+					<li data-role="list-divider">The Undevelopers</li>
+					<li>Dan Carino</li>
+					<li>Stephanie Flodman</li>
+					<li>Fiona Karlsson</li>
+
+
+			</div>
+		</div><!--ends about-->
+
+
+
+
+
+
+	</body>
+</html>

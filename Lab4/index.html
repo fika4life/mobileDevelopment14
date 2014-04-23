@@ -1,0 +1,110 @@
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>RestaurRater</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+   	<script type="text/javascript" src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>	
+	
+
+		<script type="text/javascript" charset="utf-8" src="js/wormhole.js"></script>
+		<!--  include all the required CBHelper libraries: XMLHttpRequest, md5, json and the MoSync specific helper -->
+		<script type="text/javascript" charset="utf-8" src="js/CBHelper/md5.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/CBHelper/json.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/CBHelper/CBXMLHttpRequest.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/CBHelper/CBHelper.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/CBHelper/platforms/MoSyncHelper.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/CBHelper/platforms/GenericHelper.js"></script>
+		<script type="text/javascript">
+
+
+// 		// First initialise the helper object with the code, secret code 
+// 		// and the generic helper
+// 		var helper = new CBHelper("mopub14_labb5", "ed86229afa03c22b4fd0139c60d0bb5e", new GenericHelper());
+// 		// use the md5 library provided to set the password
+// 		helper.setPassword(hex_md5("mopub14_labb5"));
+
+// 		// create an object to be inserted in our CloudBase instance,
+// 		// e.g a firstName, lastName and title into a collection called ‘users’
+// 		var dataObject = {
+// 		    "Name" : "Sosta Bar",
+// 		    "Description" : "Cozy Espresso bar",
+// 		    "Address" : "Sveavägen 84, Stockholm",
+// 		    "Category" : "Fika",
+// 		    "Price Range" : "$",
+// 		    "Rating" : "5"
+// 		};
+// 		 // use the insertDocument method to send the call and insert the data
+// 		// in the users collection then print out the response using the
+// 		// outputString property of the CBHelperResponseInfo object
+
+// 		helper.insertDocument("restaurants", dataObject, null, function(resp) {
+// 		    console.log(resp.outputString);
+// 		});
+
+// 		// create an object to be inserted in our CloudBase instance,
+// 		// e.g a firstName, lastName and title into a collection called ‘users’
+// 		var dataObject1 = {
+// 		    "Name" : "Vapiano",
+// 		    "Description" : "Italian pasta and pizza",
+// 		    "Address" : "Munkbrogatan 8, Stockholm",
+// 		    "Category" : "Fika",
+// 		    "Price Range" : "$",
+// 		    "Rating" : "5"
+// 		};
+// 		 // use the insertDocument method to send the call and insert the data
+// 		// in the users collection then print out the response using the
+// 		// outputString property of the CBHelperResponseInfo object
+
+// 		helper.insertDocument("restaurants", dataObject, null, function(resp) {
+// 		    console.log(resp.outputString);
+// 		});
+
+
+// 		var searchCondition = { "Name" : "Sosta Bar" };
+// 		// call the searchDocuments function
+// 		helper.searchDocuments(searchCondition,"restaurants", function(resp) {
+//         // uncomment next row to get entire string
+//        	// alert(resp.outputString);   
+       
+// 	        if (resp.callStatus){       // if successful
+// 	        	for (index in resp.outputData){
+// 	        		var user = resp.outputData[index];
+// 	        		alert (user.firstName + ' ' + user.lastName + ', ' + user.title);
+// 	        	}
+//         }
+//     }
+// );
+
+		</script>
+	</head>
+	<body>
+	
+	<div date-role="page">
+		<div date-role="header">
+			<h1>RestauRater</h1>
+
+		</div> <!--ends header-->
+
+		<div data-role="main" class="ui-content">
+			<p>Page content goes here.</p>
+		</div><!--end main-->
+
+		<div data-role="footer">
+		</div><!--ends footer-->
+
+
+	</div> <!--ends page -->
+
+	
+		
+
+
+
+	</body>
+</html>

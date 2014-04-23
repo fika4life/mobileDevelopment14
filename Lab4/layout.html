@@ -1,0 +1,106 @@
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>RestaurRater</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+
+	
+	<style>
+	li a{
+		text-decoration: none;
+	}
+	li{
+		list-style: none;
+	}
+	</style>
+
+	<script>
+		$(document).on("pageinit", "#page-1", function(){
+			$("ul").on("click", "li", function(){
+				$.mobile.changePage("#page-2", {transition: "slide", changeHash:false});
+
+			
+				//saves name of image for use of appending to page 2. Note: ids should match name of images.
+				var $clickedImg = $(this).attr("id");
+				
+
+			//saves clicked img src to variable
+			var $img = "<img src='images/" + $clickedImg + ".jpg'</img> ";
+			//Adds clicked image to page 2 content
+			$("#page-2 #img-holder").html($img);	
+		});
+
+			$("li").on("click", "h3", function(){
+					var $clickedTitle = $(this).text();
+					$("#page-2 h1").text($clickedTitle);
+			});	
+
+				//adds slide effect on back and home buttons
+		$('#back-btn').on("click", function(){
+			$.mobile.changePage("#page-1", {transition: "slide", reverse:true, changeHash:false});
+		});	
+		});
+
+
+	</script>
+
+
+	</head>
+	<body>
+
+		<div data-role="page" id="page-1">
+			<div data-role="header" >
+				<h1>RestauRater</h1>
+
+			</div> <!--ends header-->
+
+			<div data-role="main" class="ui-content">
+				<ul data-role="listview">
+					<li id='rest1'><a href="#"><img src="images/rest1.jpg"><h3>Mathias Dahlgren Matbaren</h3><p>*****</p><p>Description</p></a></li>
+					<li id="rest2"><a href="#"><img src="images/rest2.jpg"><h3>Fotografiska</h3><p>*****</p><p>Description</p></a></li>
+					<li id="rest3"><a href="#"><img src="images/rest3.jpg"><h3>Wardshuset Ulla Winbladh</h3><p>*****</p><p>Description</p></a></li>
+				</ul>
+
+			</div><!--end main-->
+
+			<div data-role="footer">
+			</div><!--ends footer-->
+
+
+		</div> <!--ends page -->
+
+		<div data-role="page" id="page-2">
+			<div data-role="header" >
+				<a href="#page-1" data-role="button" id='back-btn' data-icon="arrow-l" class="ui-btn-left">Back</a>
+				<h1></h1>
+
+			</div> <!--ends header-->
+
+			<div data-role="main" class="ui-content">
+				
+				<div class="ui-collapsible-content" aria-hidden="false">
+			  
+					<div id="img-holder"></div>	
+				</div>
+
+			</div><!--end main-->
+
+			<div data-role="footer">
+			</div><!--ends footer-->
+
+
+		</div> <!--ends page -->
+	
+		
+
+
+
+	</body>
+</html>
