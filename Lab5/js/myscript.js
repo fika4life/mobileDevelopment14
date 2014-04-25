@@ -83,6 +83,25 @@
 				}
 			});
 			
+				helper.searchDocuments({}, "restaurants", function(resp){
+			
+			console.log(resp.outputString);
+			$(".restName1").text(resp.outputData[0].Name);
+			$(".restName2").text(resp.outputData[1].Name);
+			$(".restName3").text(resp.outputData[2].Name);
+
+
+			$(".description1").text(resp.outputData[0].Description);
+			$(".description2").text(resp.outputData[1].Description);
+			$(".description3").text(resp.outputData[2].Description);
+			
+
+			$(".category1").text(resp.outputData[0].Category);
+			$(".category2").text(resp.outputData[1].Category);
+			$(".category3").text(resp.outputData[2].Category);
+
+		});
+			
 		
 		
 		});
