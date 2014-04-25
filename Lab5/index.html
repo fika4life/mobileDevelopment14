@@ -88,6 +88,27 @@
 					});
 				}
 			});
+
+
+
+		helper.searchDocuments({}, "restaurants", function(resp){
+			
+			console.log(resp.outputString);
+			$(".restName1").text(resp.outputData[0].Name);
+			$(".restName2").text(resp.outputData[1].Name);
+			$(".restName3").text(resp.outputData[2].Name);
+
+
+			$(".description1").text(resp.outputData[0].Description);
+			$(".description2").text(resp.outputData[1].Description);
+			$(".description3").text(resp.outputData[2].Description);
+			
+
+			$(".category1").text(resp.outputData[0].Category);
+			$(".category2").text(resp.outputData[1].Category);
+			$(".category3").text(resp.outputData[2].Category);
+
+		});
 			
 		
 		
@@ -99,22 +120,28 @@
 	<script>
 		$(document).on("pageinit", "#page-1", function(){
 
-		//adds slide effect on back and home buttons
-		$('#rest1').on("click", function(){
-			$.mobile.changePage("#rest-1", {transition: "slide", changeHash:false});
-		});	
+			//adds slide effect on back and home buttons
+			$('#rest1').on("click", function(){
+				$.mobile.changePage("#rest-1", {transition: "slide", changeHash:false});
+			});	
 
-		$('#rest2').on("click", function(){
-			$.mobile.changePage("#rest-2", {transition: "slide", changeHash:false});
-		});		
-		
-		$('#page-1').on("click", function(){
-			$.mobile.changePage("#rest3", {transition: "slide", changeHash:false});
-		});		
-		
-		$('#back-btn').on("click", function(){
-			$.mobile.changePage("#page-1", {transition: "slide", reverse: true, changeHash:false});
-		});		
+			$('#rest2').on("click", function(){
+				$.mobile.changePage("#rest-2", {transition: "slide", changeHash:false});
+			});		
+			
+			$('#page-1').on("click", function(){
+				$.mobile.changePage("#rest3", {transition: "slide", changeHash:false});
+			});		
+			
+			$('#back-btn').on("click", function(){
+				$.mobile.changePage("#page-1", {transition: "slide", reverse: true, changeHash:false});
+			});	
+
+
+
+
+
+
 		});
 
 
@@ -132,9 +159,9 @@
 
 			<div data-role="main" class="ui-content">
 				<ul data-role="listview">
-					<li id='rest1'><a href="#rest-1"><img src="images/rest1.jpg"><h3>Mathias Dahlgren Matbaren</h3><p>*****</p><p>Description</p></a></li>
-					<li id="rest2"><a href="#rest-2"><img src="images/rest2.jpg"><h3>Fotografiska</h3><p>*****</p><p>Description</p></a></li>
-					<li id="rest3"><a href="#rest-3"><img src="images/rest3.jpg"><h3>Wardshuset Ulla Winbladh</h3><p>*****</p><p>Description</p></a></li>
+					<li id='rest1'><a href="#rest-1"><img src="images/rest1.jpg"><h3 class="restName1"></h3><p class="category1"></p><p>*****</p><p class="description1">Description</p></a></li>
+					<li id="rest2"><a href="#rest-2"><img src="images/rest2.jpg"><h3 class="restName2"></h3><p class="category2">Description</p><p>*****</p><p class="description2">Description</p></a></li>
+					<li id="rest3"><a href="#rest-3"><img src="images/rest3.jpg"><h3 class="restName3"></h3><p class="category3">Description</p><p>*****</p><p class="description3">Description</p></a></li>
 				</ul>
 
 			</div><!--end main-->
@@ -156,11 +183,11 @@
 				
 	
 			  	<div>
-			  		<h3>Mathias Dahlgren Matbaren</h3>
-			  		<p>Category</p>
-			  		<img src="images/rest1.jpg">
+			  		<h3 class="restName1"></h3>
+			  		<p class="category1"></p>
+			  		<p class="description1"></p>
 			  		<p>*****</p>
-			  		<p>Description</p></a>
+			  		<img src="images/rest1.jpg">
 			  		
 					
 				</div>
@@ -185,11 +212,11 @@
 				
 	
 			  	<div>
-			  		<h3>Fotografiska</h3>
-			  		<p>Category</p>
-			  		<img src="images/rest2.jpg">
+			  		<h3 class="restName2"></h3>
+			  		<p class="category2"></p>
+			  		<p class="description2"></p>
 			  		<p>*****</p>
-			  		<p>Description</p></a>
+			  		<img src="images/rest2.jpg">
 			  		
 					
 				</div>
@@ -213,11 +240,11 @@
 				
 	
 			  	<div>
-			  		<h3>Wardshuset Ulla Winbladh</h3>
-			  		<p>Category</p>
-			  		<img src="images/rest3.jpg">
+			  		<h3 class="restName3"></h3>
+			  		<p class="category3"></p>
+			  		<p class="description3"></p>
 			  		<p>*****</p>
-			  		<p>Description</p></a>
+			  		<img src="images/rest3.jpg">
 			  		
 					
 				</div>
