@@ -7,130 +7,228 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css">
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-   	<script type="text/javascript" src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>	
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+
+	<!--script type="text/javascript" charset="utf-8" src="js/wormhole.js"></script-->
+	<!--  include all the required CBHelper libraries: XMLHttpRequest, md5, json and the MoSync specific helper -->
+	<script type="text/javascript" charset="utf-8" src="js/CBHelper/md5.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/CBHelper/json.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/CBHelper/CBXMLHttpRequest.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/CBHelper/CBHelper.js"></script>
+	<script type="text/javascript" charset="utf-8" src="js/CBHelper/platforms/GenericHelper.js"></script>
+
+
 	
+	<style>
+	li a{
+		text-decoration: none;
+	}
+	li{
+		list-style: none;
+	}
+	</style>
+	<script>
+		$(function(){
+			helper = new CBHelper("mopub14_labb5", "ed86229afa03c22b4fd0139c60d0bb5e", new GenericHelper());
+			helper.setPassword(hex_md5("mopub14_labb5"));
 
-		<!--script type="text/javascript" charset="utf-8" src="js/wormhole.js"></script-->
-		<!--  include all the required CBHelper libraries: XMLHttpRequest, md5, json and the MoSync specific helper -->
-		<script type="text/javascript" charset="utf-8" src="js/CBHelper/md5.js"></script>
-		<script type="text/javascript" charset="utf-8" src="js/CBHelper/json.js"></script>
-		<script type="text/javascript" charset="utf-8" src="js/CBHelper/CBXMLHttpRequest.js"></script>
-		<script type="text/javascript" charset="utf-8" src="js/CBHelper/CBHelper.js"></script>
-		<!--script type="text/javascript" charset="utf-8" src="js/CBHelper/platforms/MoSyncHelper.js"></script-->
-		<script type="text/javascript" charset="utf-8" src="js/CBHelper/platforms/GenericHelper.js"></script>
-		<script type="text/javascript">
+		var rest1 = {    "Name": "Mathias Dahlgren Matbaren",
+	    				"ID": "1",
+	    				"Description": "Natural taste and natural produce are essential for natural cuisine",
+	   					 "Address": "Sodra Blasieholmshamnen 6, Stockholm",
+						    "Category": "Swedish",
+						    "Price Range": "$$$$",
+						    "Rating": "5"
+				};
+
+		var rest2 = {
+		    "Name": "Fotografiska",
+		    "ID": "2",
+		    "Description": "Our kitchen pride themselves on the same excellent quality and standard as the rest of the museum.",
+		    "Address": "Stadsgardshamnen 22, Stockholm",
+		    "Category": "Cafe",
+		    "Price Range": "$$",
+		    "Rating": "4"
+			};
+
+		var rest3={
+		    "Name": "Wardshuset Ulla Winbladh",
+		    "ID": "3",
+		    "Description": "This restaurant embodies perfection in an old fashioned manner. Both the exterior & the interior design gives a graceful and appealing impression.",
+		    "Address": "Rosendalsvagen 8, Stockholm",
+		    "Category": "Scandinavian",
+		    "Price Range": "$$$",
+		    "Rating": "3"
+			};	
 
 
-		// First initialise the helper object with the code, secret code 
-		// and the generic helper
-		var helper = new CBHelper("mopub14_labb5", "ed86229afa03c22b4fd0139c60d0bb5e", new GenericHelper());
-		// use the md5 library provided to set the password
-		helper.setPassword(hex_md5("mopub14_labb5"));
 
-		// create an object to be inserted in our CloudBase instance,
-		// e.g a firstName, lastName and title into a collection called ‘users’
-		var dataObject = {
-		    "Name" : "Sosta Bar",
-		    "Description" : "Cozy Espresso bar",
-		    "Address" : "Sveavägen 84, Stockholm",
-		    "Category" : "Fika",
-		    "Price Range" : "1",
-		    "Rating" : "5"
-		};
-
-
-		// create an object to be inserted in our CloudBase instance,
-		// e.g a firstName, lastName and title into a collection called ‘users’
-		var dataObject1 = {
-		    "Name" : "Vapiano",
-		    "Description" : "Italian pasta and pizza",
-		    "Address" : "Munkbrogatan 8, Stockholm",
-		    "Category" : "Fika",
-		    "Price Range" : "$$",
-		    "Rating" : "4"
-		};
-
-		var dataObject2 = {
-		    "Name" : "TGI Friday's",
-		    "Description" : "American Bar and Grill",
-		    "Address" : "Hamngatan 19, Stockholm",
-		    "Category" : "American",
-		    "Price Range" : "$$$",
-		    "Rating" : "3"
-		};
-		 // use the insertDocument method to send the call and insert the data
-		// in the users collection then print out the response using the
-		// outputString property of the CBHelperResponseInfo object
-
-		// helper.insertDocument("restaurants", dataObject, null, function(resp) {
-		//     console.log(resp.outputString);
-		// });
-
-		// helper.insertDocument("restaurants", dataObject1, null, function(resp) {
-		//     console.log(resp.outputString);
-		// });	
-
-		// helper.insertDocument("restaurants", dataObject2, null, function(resp) {
-		//     console.log(resp.outputString);
-		// });	
-
-		// call the searchDocuments function
-	
-		helper.searchDocuments({ "Name" : "Sosta Bar" }, "restaurants", function(resp) {
-			if ( resp.callStatus && resp.outputData.length == 0 ) {
-				// no users with this name found - insert new user and login
-						helper.insertDocument("restaurants", dataObject, null, function(resp) {
-							console.log(resp.outputString);
-						});
-				
+		helper.searchDocuments(rest1, "restaurants", function(resp) {
+			if(resp.callStatus && resp.outputData.length == 0){
+					helper.insertDocument("restaurants", rest1, function(resp){
+					console.log(resp.outputString);
+					});
 				}
+			});
+
+		helper.searchDocuments(rest2, "restaurants", function(resp) {
+			if(resp.callStatus && resp.outputData.length == 0){
+					helper.insertDocument("restaurants", rest2, function(resp){
+					console.log(resp.outputString);
+					});
+				}
+			});
+
+		helper.searchDocuments(rest3, "restaurants", function(resp) {
+			if(resp.callStatus && resp.outputData.length == 0){
+					helper.insertDocument("restaurants", rest3, function(resp){
+					console.log(resp.outputString);
+					});
+				}
+			});
+			
+		
+		
 		});
 
-		helper.searchDocuments({ "Name" : "Vapiano" }, "restaurants", function(resp) {
-			if ( resp.callStatus && resp.outputData.length == 0 ) {
-				// no users with this name found - insert new user and login
-						helper.insertDocument("restaurants", dataObject1, null, function(resp) {
-							console.log(resp.outputString);
-						});
-				
-				}
-		});	
-		
-		helper.searchDocuments({ "Name" : "TGI Friday's" }, "restaurants", function(resp) {
-			if ( resp.callStatus && resp.outputData.length == 0 ) {
-				// no users with this name found - insert new user and login
-						helper.insertDocument("restaurants", dataObject2, null, function(resp) {
-							console.log(resp.outputString);
-						});
-				
-				}
-		});	
-
 	
+	</script>
+
+	<script>
+		$(document).on("pageinit", "#page-1", function(){
+
+		//adds slide effect on back and home buttons
+		$('#rest1').on("click", function(){
+			$.mobile.changePage("#rest-1", {transition: "slide", changeHash:false});
+		});	
+
+		$('#rest2').on("click", function(){
+			$.mobile.changePage("#rest-2", {transition: "slide", changeHash:false});
+		});		
+		
+		$('#page-1').on("click", function(){
+			$.mobile.changePage("#rest3", {transition: "slide", changeHash:false});
+		});		
+		
+		$('#back-btn').on("click", function(){
+			$.mobile.changePage("#page-1", {transition: "slide", reverse: true, changeHash:false});
+		});		
+		});
 
 
-		</script>
+	</script>
+
+
 	</head>
 	<body>
+
+		<div data-role="page" id="page-1">
+			<div data-role="header" >
+				<h1>RestauRater</h1>
+
+			</div> <!--ends header-->
+
+			<div data-role="main" class="ui-content">
+				<ul data-role="listview">
+					<li id='rest1'><a href="#rest-1"><img src="images/rest1.jpg"><h3>Mathias Dahlgren Matbaren</h3><p>*****</p><p>Description</p></a></li>
+					<li id="rest2"><a href="#rest-2"><img src="images/rest2.jpg"><h3>Fotografiska</h3><p>*****</p><p>Description</p></a></li>
+					<li id="rest3"><a href="#rest-3"><img src="images/rest3.jpg"><h3>Wardshuset Ulla Winbladh</h3><p>*****</p><p>Description</p></a></li>
+				</ul>
+
+			</div><!--end main-->
+
+			<div data-role="footer">
+			</div><!--ends footer-->
+
+
+		</div> <!--ends page -->
+
+		<div data-role="page" id="rest-1">
+			<div data-role="header" >
+				<a href="#page-1" data-role="button" id='back-btn' data-icon="arrow-l" class="ui-btn-left">Back</a>
+				<h1></h1>
+
+			</div> <!--ends header-->
+
+			<div data-role="main" class="ui-content">
+				
 	
-	<div date-role="page">
-		<div date-role="header">
-			<h1>RestauRater</h1>
+			  	<div>
+			  		<h3>Mathias Dahlgren Matbaren</h3>
+			  		<p>Category</p>
+			  		<img src="images/rest1.jpg">
+			  		<p>*****</p>
+			  		<p>Description</p></a>
+			  		
+					
+				</div>
 
-		</div> <!--ends header-->
+			</div><!--end main-->
 
-		<div data-role="main" class="ui-content">
-			<p>Page content goes here.</p>
-		</div><!--end main-->
-
-		<div data-role="footer">
-		</div><!--ends footer-->
+			<div data-role="footer">
+			</div><!--ends footer-->
 
 
-	</div> <!--ends page -->
+		</div> <!--ends page -->
 
+
+		<div data-role="page" id="rest-2">
+			<div data-role="header" >
+				<a href="#page-1" data-role="button" id='back-btn' data-icon="arrow-l" class="ui-btn-left">Back</a>
+				<h1></h1>
+
+			</div> <!--ends header-->
+
+			<div data-role="main" class="ui-content">
+				
+	
+			  	<div>
+			  		<h3>Fotografiska</h3>
+			  		<p>Category</p>
+			  		<img src="images/rest2.jpg">
+			  		<p>*****</p>
+			  		<p>Description</p></a>
+			  		
+					
+				</div>
+
+			</div><!--end main-->
+
+			<div data-role="footer">
+			</div><!--ends footer-->
+
+
+		</div> <!--ends page -->
+
+				<div data-role="page" id="rest-3">
+			<div data-role="header" >
+				<a href="#page-1" data-role="button" id='back-btn' data-icon="arrow-l" class="ui-btn-left">Back</a>
+				<h1></h1>
+
+			</div> <!--ends header-->
+
+			<div data-role="main" class="ui-content">
+				
+	
+			  	<div>
+			  		<h3>Wardshuset Ulla Winbladh</h3>
+			  		<p>Category</p>
+			  		<img src="images/rest3.jpg">
+			  		<p>*****</p>
+			  		<p>Description</p></a>
+			  		
+					
+				</div>
+
+			</div><!--end main-->
+
+			<div data-role="footer">
+			</div><!--ends footer-->
+
+
+		</div> <!--ends page -->
 	
 		
 
