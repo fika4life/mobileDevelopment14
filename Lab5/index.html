@@ -30,8 +30,15 @@
 	li{
 		list-style: none;
 	}
+
+	#rating1, #rating2, #rating3{
+		font-size: 16px;
+		font-weight: normal;
+	}
 	</style>
 	<script>
+		//var avgrate=0;
+
 		$(function(){
 			helper = new CBHelper("mopub14_labb5", "ed86229afa03c22b4fd0139c60d0bb5e", new GenericHelper());
 			helper.setPassword(hex_md5("mopub14_labb5"));
@@ -112,7 +119,7 @@
 
 		});
 
-		});
+		// });
 
 
 
@@ -120,10 +127,9 @@
 		
 		
 	
-
 	
 
-		$(document).on("pageinit", "#page-1", function(){
+		// $(document).on("pageinit", "#page-1", function(){
 
 			//adds slide effect on back and home buttons
 			$('#rest1').on("click", function(){
@@ -148,31 +154,69 @@
 					"Rating": score
 				}
 				helper.insertDocument("ratings", condition, function(resp){
-					console.log(resp.outputString);
+					//console.log(resp.outputString);
 				})
 
-				helper.searchDocuments({"Restaurant": "Mathias Dahlgren Matbaren"}, "ratings", function(resp){	
+
+			}
+			
+			// function getRating(restaurant){
+				
+			// 	helper.searchDocuments({"Restaurant": restaurant}, "ratings", function(resp){	
+			// 	//console.log(resp.outputData[0].Rating);
+			// 	//rate1_score = resp.outputData[0].Rating;
+			// 	//alert(resp.outputString);
+			// 	//alert(rate1_score);
+			// 	var sum=0;
+			// 	for (var i=0; i<resp.outputData.length; i++){
+			// 		sum +=resp.outputData[i].Rating;
+			// 	}
+			// 	average = sum/resp.outputData.length;
+			// 	console.log("the average is:" + average);
+			// 	avgrate = average;
+			// 	})
+			// }
+				
+			// new getRating("Mathias Dahlgren Matbaren");
+
+			function getRating(restaurant){
+				var restaurant = restaurant;
+				helper.searchDocuments({"Restaurant": restaurant}, "ratings", function(resp){	
 				//console.log(resp.outputData[0].Rating);
 				//rate1_score = resp.outputData[0].Rating;
 				//alert(resp.outputString);
 				//alert(rate1_score);
 				var sum=0;
-				var average;
 				for (var i=0; i<resp.outputData.length; i++){
 					sum +=resp.outputData[i].Rating;
 				}
-				average = sum1/resp.outputData.length;
-				console.log(average);
-				})
-			}
+				average = sum/resp.outputData.length;
+				console.log("the average is:" + average);
 				
+				if(restaurant == "Mathias Dahlgren Matbaren" ){
+					document.getElementById('rating1').innerHTML="Average user rating: " + average;
+				}else if(restaurant == "Fotografiska"){
+						document.getElementById('rating2').innerHTML="Average user rating: " + average;
+				} else{
+					document.getElementById('rating3').innerHTML="Average user rating: " + average;
+
+				}
+				});
+
+			}
 
 
 
-			$("div.rating1").raty({readOnly:true,score:2});
+			getRating("Mathias Dahlgren Matbaren");
+			getRating("Fotografiska");
+			getRating("Wardshuset Ulla Winbladh");
 
-			$("div.rating2").raty({readOnly:true,score:4});
-			$("div.rating3").raty({readOnly:true,score:5});
+			
+			//onsole.log("avgrate is:" + avgrate);
+			//$("div.rating1").raty({readOnly:true,score:});
+
+			//$("div.rating2").raty({readOnly:true,score:4});
+			//$("div.rating3").raty({readOnly:true,score:5});
 
 			$("div.rate1").raty({
 				  click: function(score) {
@@ -182,8 +226,19 @@
 					});
 
 
-			$("div.rate2").raty();
-			$("div.rate3").raty();
+			$("div.rate2").raty({
+				  click: function(score) {
+    				//alert('ID: ' + $(this).attr('id') + "\nscore: " + score + "\nevent: " + evt);
+ 					 addRating(score, "Fotografiska");
+ 					 }
+					});
+			$("div.rate3").raty({
+				  click: function(score) {
+    				//alert('ID: ' + $(this).attr('id') + "\nscore: " + score + "\nevent: " + evt);
+ 					 addRating(score, "Wardshuset Ulla Winbladh");
+ 					 }
+					});
+			
 			
 
 		
@@ -206,7 +261,7 @@
 
 			<div data-role="main" class="ui-content">
 				<ul data-role="listview">
-					<li id='rest1'><a href="#rest-1"><img src="images/rest1.jpg"><h3 class="restName1"></h3><p class="category1"></p><div class="rating1"></div><p class="description1">Description</p></a></li>
+					<li id='rest1'><a href="#rest-1"><img src="images/rest1.jpg"><h3 class="restName1"></h3><p class="category1"></p><div class="rating1" ></div><p class="description1">Description</p></a></li>
 					<li id="rest2"><a href="#rest-2"><img src="images/rest2.jpg"><h3 class="restName2"></h3><p class="category2"></p><div class="rating2"></div><p class="description2">Description</p></a></li>
 					<li id="rest3"><a href="#rest-3"><img src="images/rest3.jpg"><h3 class="restName3"></h3><p class="category3"></p><div class="rating3"></div><p class="description3">Description</p></a></li>
 				</ul>
@@ -233,8 +288,8 @@
 			  		<h3 class="restName1"></h3>
 			  		<p class="category1"></p>
 			  		<p class="description1"></p>
-			  		<p>Current Rating</p>
-			  		<div class="rating1"></div>
+			  		
+			  		<div id="rating1"><p></p></div>
 
 			  		<br>
 			  		<img src="images/rest1.jpg">
@@ -269,8 +324,8 @@
 			  		<h3 class="restName2"></h3>
 			  		<p class="category2"></p>
 			  		<p class="description2"></p>
-			  		<p>Current Rating</p>
-			  		<div class="rating2"></div>
+			  		
+			  		<div id="rating2"></div>
 			  		<br>
 			  		<img src="images/rest2.jpg">
 			  		<p>RATE THIS RESTAURANT</p>
@@ -303,8 +358,8 @@
 			  		<p class="category3"></p>
 			  		<p class="description3"></p>
 
-			  		<p>Current rating</p>
-			  		<div class="rating3"></div>
+			  		
+			  		<div id="rating3"></div>
 			  		<br/>
 			  		<img src="images/rest3.jpg">
 			  		<p>RATE THIS RESTAURANT</p>
