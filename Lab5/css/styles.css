@@ -1,0 +1,29 @@
+.main-content{
+	/*text-align: center;*/
+	margin: 0 auto;
+}
+
+li a{
+		text-decoration: none;
+	}
+li{
+	list-style: none;
+}
+
+#rating1, #rating2, #rating3{
+	font-size: 16px;
+	font-weight: normal;
+}
+
+form{
+	height: 200px;
+}
+
+input[type=text] {height: 200px; }
+
+.ui-btn.ui-input-btn.ui-corner-all.ui-shadow{
+		width:140px;
+		margin: 0 auto;
+		padding:0 auto;
+	}
+

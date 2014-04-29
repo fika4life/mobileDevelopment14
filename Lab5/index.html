@@ -8,248 +8,23 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/styles.css" />
+
+	<!-- Jquery libraries -->
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
 
-	<!--script type="text/javascript" charset="utf-8" src="js/wormhole.js"></script-->
-	<!--  include all the required CBHelper libraries: XMLHttpRequest, md5, json and the MoSync specific helper -->
+	<!-- Cloudbase libraries -->
 	<script type="text/javascript" charset="utf-8" src="js/CBHelper/md5.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/CBHelper/json.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/CBHelper/CBXMLHttpRequest.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/CBHelper/CBHelper.js"></script>
 	<script type="text/javascript" charset="utf-8" src="js/CBHelper/platforms/GenericHelper.js"></script>
 
+
+	<!-- Third party and my javascript files -->
 	<script type="text/javascript"  src="lib/jquery.raty.min.js"></script>
-
-
-	
-	<style>
-	li a{
-		text-decoration: none;
-	}
-	li{
-		list-style: none;
-	}
-
-	#rating1, #rating2, #rating3{
-		font-size: 16px;
-		font-weight: normal;
-	}
-	</style>
-	<script>
-		//var avgrate=0;
-
-		$(function(){
-			helper = new CBHelper("mopub14_labb5", "ed86229afa03c22b4fd0139c60d0bb5e", new GenericHelper());
-			helper.setPassword(hex_md5("mopub14_labb5"));
-
-		var rest1 = {    "Name": "Mathias Dahlgren Matbaren",
-	    				"ID": "1",
-	    				"Description": "Natural taste and natural produce are essential for natural cuisine",
-	   					 "Address": "Sodra Blasieholmshamnen 6, Stockholm",
-						    "Category": "Swedish",
-						    "Price Range": "$$$$",
-						    "Rating": "5"
-				};
-
-		var rest2 = {
-		    "Name": "Fotografiska",
-		    "ID": "2",
-		    "Description": "Our kitchen pride themselves on the same excellent quality and standard as the rest of the museum.",
-		    "Address": "Stadsgardshamnen 22, Stockholm",
-		    "Category": "Cafe",
-		    "Price Range": "$$",
-		    "Rating": "4"
-			};
-
-		var rest3={
-		    "Name": "Wardshuset Ulla Winbladh",
-		    "ID": "3",
-		    "Description": "This restaurant embodies perfection in an old fashioned manner. Both the exterior & the interior design gives a graceful and appealing impression.",
-		    "Address": "Rosendalsvagen 8, Stockholm",
-		    "Category": "Scandinavian",
-		    "Price Range": "$$$",
-		    "Rating": "3"
-			};	
-
-
-
-		helper.searchDocuments(rest1, "restaurants", function(resp) {
-			if(resp.callStatus && resp.outputData.length == 0){
-					helper.insertDocument("restaurants", rest1, function(resp){
-					console.log(resp.outputString);
-					});
-				}
-			});
-
-		helper.searchDocuments(rest2, "restaurants", function(resp) {
-			if(resp.callStatus && resp.outputData.length == 0){
-					helper.insertDocument("restaurants", rest2, function(resp){
-					console.log(resp.outputString);
-					});
-				}
-			});
-
-		helper.searchDocuments(rest3, "restaurants", function(resp) {
-			if(resp.callStatus && resp.outputData.length == 0){
-					helper.insertDocument("restaurants", rest3, function(resp){
-					console.log(resp.outputString);
-					});
-				}
-			});
-
-
-
-		helper.searchDocuments({}, "restaurants", function(resp){
-			
-			console.log(resp.outputString);
-			$(".restName1").text(resp.outputData[0].Name);
-			$(".restName2").text(resp.outputData[1].Name);
-			$(".restName3").text(resp.outputData[2].Name);
-
-
-			$(".description1").text(resp.outputData[0].Description);
-			$(".description2").text(resp.outputData[1].Description);
-			$(".description3").text(resp.outputData[2].Description);
-			
-
-			$(".category1").text(resp.outputData[0].Category);
-			$(".category2").text(resp.outputData[1].Category);
-			$(".category3").text(resp.outputData[2].Category);
-
-		});
-
-		// });
-
-
-
-
-		
-		
-	
-	
-
-		// $(document).on("pageinit", "#page-1", function(){
-
-			//adds slide effect on back and home buttons
-			$('#rest1').on("click", function(){
-				$.mobile.changePage("#rest-1", {transition: "slide", changeHash:false});
-			});	
-
-			$('#rest2').on("click", function(){
-				$.mobile.changePage("#rest-2", {transition: "slide", changeHash:false});
-			});		
-			
-			$('#rest3').on("click", function(){
-				$.mobile.changePage("#rest-3", {transition: "slide", changeHash:false});
-			});		
-			
-			$('#back-btn').on("click", function(){
-				$.mobile.changePage("#page-1", {transition: "slide", reverse: true, changeHash:false});
-			});	
-
-			function addRating(score, restaurant){
-				var condition ={
-					"Restaurant": restaurant,
-					"Rating": score
-				}
-				helper.insertDocument("ratings", condition, function(resp){
-					//console.log(resp.outputString);
-				})
-
-
-			}
-			
-			// function getRating(restaurant){
-				
-			// 	helper.searchDocuments({"Restaurant": restaurant}, "ratings", function(resp){	
-			// 	//console.log(resp.outputData[0].Rating);
-			// 	//rate1_score = resp.outputData[0].Rating;
-			// 	//alert(resp.outputString);
-			// 	//alert(rate1_score);
-			// 	var sum=0;
-			// 	for (var i=0; i<resp.outputData.length; i++){
-			// 		sum +=resp.outputData[i].Rating;
-			// 	}
-			// 	average = sum/resp.outputData.length;
-			// 	console.log("the average is:" + average);
-			// 	avgrate = average;
-			// 	})
-			// }
-				
-			// new getRating("Mathias Dahlgren Matbaren");
-
-			function getRating(restaurant){
-				var restaurant = restaurant;
-				helper.searchDocuments({"Restaurant": restaurant}, "ratings", function(resp){	
-				//console.log(resp.outputData[0].Rating);
-				//rate1_score = resp.outputData[0].Rating;
-				//alert(resp.outputString);
-				//alert(rate1_score);
-				var sum=0;
-				for (var i=0; i<resp.outputData.length; i++){
-					sum +=resp.outputData[i].Rating;
-				}
-				average = sum/resp.outputData.length;
-				console.log("the average is:" + average);
-				
-				if(restaurant == "Mathias Dahlgren Matbaren" ){
-					document.getElementById('rating1').innerHTML="Average user rating: " + average;
-				}else if(restaurant == "Fotografiska"){
-						document.getElementById('rating2').innerHTML="Average user rating: " + average;
-				} else{
-					document.getElementById('rating3').innerHTML="Average user rating: " + average;
-
-				}
-				});
-
-			}
-
-
-
-			getRating("Mathias Dahlgren Matbaren");
-			getRating("Fotografiska");
-			getRating("Wardshuset Ulla Winbladh");
-
-			
-			//onsole.log("avgrate is:" + avgrate);
-			//$("div.rating1").raty({readOnly:true,score:});
-
-			//$("div.rating2").raty({readOnly:true,score:4});
-			//$("div.rating3").raty({readOnly:true,score:5});
-
-			$("div.rate1").raty({
-				  click: function(score) {
-    				//alert('ID: ' + $(this).attr('id') + "\nscore: " + score + "\nevent: " + evt);
- 					 addRating(score, "Mathias Dahlgren Matbaren");
- 					 }
-					});
-
-
-			$("div.rate2").raty({
-				  click: function(score) {
-    				//alert('ID: ' + $(this).attr('id') + "\nscore: " + score + "\nevent: " + evt);
- 					 addRating(score, "Fotografiska");
- 					 }
-					});
-			$("div.rate3").raty({
-				  click: function(score) {
-    				//alert('ID: ' + $(this).attr('id') + "\nscore: " + score + "\nevent: " + evt);
- 					 addRating(score, "Wardshuset Ulla Winbladh");
- 					 }
-					});
-			
-			
-
-		
-			
-
-		
-	});
-
-	</script>
-
-
+	<script type="text/javascript"  src="js/myscript.js"></script>
 	</head>
 	<body>
 	
@@ -261,9 +36,9 @@
 
 			<div data-role="main" class="ui-content">
 				<ul data-role="listview">
-					<li id='rest1'><a href="#rest-1"><img src="images/rest1.jpg"><h3 class="restName1"></h3><p class="category1"></p><div class="rating1" ></div><p class="description1">Description</p></a></li>
-					<li id="rest2"><a href="#rest-2"><img src="images/rest2.jpg"><h3 class="restName2"></h3><p class="category2"></p><div class="rating2"></div><p class="description2">Description</p></a></li>
-					<li id="rest3"><a href="#rest-3"><img src="images/rest3.jpg"><h3 class="restName3"></h3><p class="category3"></p><div class="rating3"></div><p class="description3">Description</p></a></li>
+					<li id='rest1'><a href="#rest-1"><img src="images/rest1.jpg"><h2 class="restName1"></h2><p class="category1"></p><div class="rating1" ></div><p class="description1"></p></a></li>
+					<li id='rest2'><a href="#rest-2"><img src="images/rest2.jpg"><h3 class="restName2"></h3><p class="category2"></p><div class="rating2"></div><p class="description2"></p></a></li>
+					<li id="rest3"><a href="#rest-3"><img src="images/rest3.jpg"><h3 class="restName3"></h3><p class="category3"></p><div class="rating3"></div><p class="description3"></p></a></li>
 				</ul>
 				
 			</div><!--end main-->
@@ -276,7 +51,7 @@
 
 		<div data-role="page" id="rest-1">
 			<div data-role="header" >
-				<a href="#page-1" data-role="button" id='back-btn' data-icon="arrow-l" class="ui-btn-left">Back</a>
+				<a href="#page-1" data-role="button" class='back-btn' data-icon="arrow-l" class="ui-btn-left">Back</a>
 				<h1></h1>
 
 			</div> <!--ends header-->
@@ -284,18 +59,25 @@
 			<div data-role="main" class="ui-content">
 				
 	
-			  	<div>
+			  	<div class="main-content">
 			  		<h3 class="restName1"></h3>
 			  		<p class="category1"></p>
 			  		<p class="description1"></p>
+			  		<p class="price-range1"></p>
 			  		
 			  		<div id="rating1"><p></p></div>
 
 			  		<br>
 			  		<img src="images/rest1.jpg">
-			  		<p>RATE THIS RESTAURANT</p>
+			  		<h3>Rate this restaurant</h3>
 			  		<div class="rate1"></div>
-			  		<p>Leave a comment</p>
+			  		<p><strong>User comments</strong></p>
+			  		<p id="old-comments1"></p>
+			  		<h3><strong>Leave a comment</strong></h3>
+			  		<form name="input" id="comment-form" >
+			  			<input type="text" name="comment1" id="comment1">
+			  			<input type="submit" value="Submit">
+			  		</form>
 			  		
 			  		
 					
@@ -312,7 +94,7 @@
 
 		<div data-role="page" id="rest-2">
 			<div data-role="header" >
-				<a href="#page-1" data-role="button" id='back-btn' data-icon="arrow-l" class="ui-btn-left">Back</a>
+				<a href="#page-1" data-role="button" class='back-btn' data-icon="arrow-l" class="ui-btn-left">Back</a>
 				<h1></h1>
 
 			</div> <!--ends header-->
@@ -321,16 +103,24 @@
 				
 	
 			  	<div>
-			  		<h3 class="restName2"></h3>
+			  		<h2 class="restName2"></h2>
 			  		<p class="category2"></p>
+			  		<p></p><p class="price-range2"></p>
 			  		<p class="description2"></p>
+			  		
 			  		
 			  		<div id="rating2"></div>
 			  		<br>
 			  		<img src="images/rest2.jpg">
-			  		<p>RATE THIS RESTAURANT</p>
+			  		<h3>Rate this restaurant</h3>
 			  		<div class="rate2"></div>
-			  		<p>Leave a comment</p>
+			  		<p><strong>User comments</strong></p>
+			  		<p id="old-comments2"></p>
+			  		<p><strong>Leave a comment</strong></p>
+			  		<form name="input" id="comment-form2" >
+			  			<input type="text" name="comment2" id="comment2">
+			  			<input type="submit" value="Submit">
+			  		</form>			  		
 			  		
 					
 				</div>
@@ -345,7 +135,7 @@
 
 				<div data-role="page" id="rest-3">
 			<div data-role="header" >
-				<a href="#page-1" data-role="button" id='back-btn' data-icon="arrow-l" class="ui-btn-left">Back</a>
+				<a href="#page-1" data-role="button" class='back-btn' data-icon="arrow-l" class="ui-btn-left">Back</a>
 				<h1></h1>
 
 			</div> <!--ends header-->
@@ -354,18 +144,26 @@
 				
 	
 			  	<div>
-			  		<h3 class="restName3"></h3>
+			  		<h2 class="restName3"></h2>
 			  		<p class="category3"></p>
+			  		<p class="price-range3"></p>
 			  		<p class="description3"></p>
+
 
 			  		
 			  		<div id="rating3"></div>
 			  		<br/>
 			  		<img src="images/rest3.jpg">
-			  		<p>RATE THIS RESTAURANT</p>
+			  		<h3>Rate this restaurant</h3>
 			  		<div class="rate3"></div>
-			  		<p>Leave a comment</p>
+			  		<p><strong>User comments</strong></p>
 			  		
+			  		<p id="old-comments3"></p>
+			  		<p><strong>Leave a comment</strong></p>
+			  		<form name="input" id="comment-form3" >
+			  			<input type="text" name="comment3" id="comment3">
+			  			<input type="submit" value="Submit">
+			  		</form>			  		
 					
 				</div>
 
