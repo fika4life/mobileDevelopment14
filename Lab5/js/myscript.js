@@ -217,11 +217,9 @@
 
 			$("div.rate1").raty({
 				  click: function(score) {
-    				//alert('ID: ' + $(this).attr('id') + "\nscore: " + score + "\nevent: " + evt);
-    				
  					addRating(score, "Mathias Dahlgren Matbaren");
-
- 					 }
+ 					alert('Thank you for your input!');
+ 					}
 					});
 
 
@@ -229,19 +227,21 @@
 				  click: function(score) {
     				//alert('ID: ' + $(this).attr('id') + "\nscore: " + score + "\nevent: " + evt);
  					 addRating(score, "Fotografiska");
+ 					 alert('Thank you for your input!');
  					 }
 					});
 			$("div.rate3").raty({
 				  click: function(score) {
     				//alert('ID: ' + $(this).attr('id') + "\nscore: " + score + "\nevent: " + evt);
  					 addRating(score, "Wardshuset Ulla Winbladh");
+ 					 alert('Thank you for your input!');
 
  					 }
 					});
 			
 
 			// Javascript for comments retrieval to Cloudbase
-			$("#comment-form").submit(function(evt){
+			$("#comment-form").submit(function(event){
 				//alert('Submit is clicked');
 				var $comment = $("#comment1").val();
 				var $restaurant = $("h3.restName1").text();
@@ -253,7 +253,7 @@
 			});
 			
 		
-			$("#comment-form2").submit(function(evt){
+			$("#comment-form2").submit(function(event){
 				//alert('Submit is clicked');
 				var $comment = $("#comment2").val();
 				var $restaurant = $("h3.restName2").text();
@@ -264,7 +264,7 @@
 				event.preventDefault();
 			});				
 			
-			$("#comment-form3").submit(function(evt){
+			$("#comment-form3").submit(function(event){
 				//alert('Submit is clicked');
 				var $comment = $("#comment3").val();
 				var $restaurant = $("h3.restName3").text();
